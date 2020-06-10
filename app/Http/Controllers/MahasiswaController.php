@@ -6,10 +6,15 @@ use Illuminate\Http\Request;
 
 class MahasiswaController extends Controller
 {
-    public function index()
+    public function index(Request $request) // menangkap data yang ingin dicari dengan request
     {
+      // menggunakan if else untuk melakukan pencarian
+      if ($request->has('cari')) {
+          $data_mahasiswa = \App\mahasiswa::where('nama_depan', 'LIKE', '%' .$request->cari. '%')->get();
+      }else {
+        $data_mahasiswa = \App\Mahasiswa::all(); // menghubungkan dengan database dari model Mahasiswa
+      }
       // menghubungkan database dengan view
-      $data_mahasiswa = \App\Mahasiswa::all(); // menghubungkan dengan database dari model Mahasiswa
       return view('mahasiswa.index', ['data_mahasiswa' => $data_mahasiswa]); // variabel 'data_mahasiswa' diisi dengan $data_mahasiswa
     }
 
@@ -35,7 +40,7 @@ class MahasiswaController extends Controller
     public function delete($id)
     {
       $mahasiswa = \App\Mahasiswa::find($id);
-      $mahasiswa->delete(); 
+      $mahasiswa->delete();
       return redirect('/mahasiswa')->with('sukses', 'Data berhasil di hapus');
     }
 }
