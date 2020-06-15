@@ -31,8 +31,8 @@
                       @foreach($data_mahasiswa as $mahasiswa)
                       <tr>
                         <!-- memilih data sesuai field ($data seluruh->nama_fieldnya) -->
-                        <td>{{$mahasiswa->nama_depan}}</td>
-                        <td>{{$mahasiswa->nama_belakang}}</td>
+                        <td><a href="/mahasiswa/{{$mahasiswa->id}}/profile">{{$mahasiswa->nama_depan}}</a></td>
+                        <td><a href="/mahasiswa/{{$mahasiswa->id}}/profile">{{$mahasiswa->nama_belakang}}</a></td>
                         <td>{{$mahasiswa->jenis_kelamin}}</td>
                         <td>{{$mahasiswa->agama}}</td>
                         <td>{{$mahasiswa->alamat}}</td>

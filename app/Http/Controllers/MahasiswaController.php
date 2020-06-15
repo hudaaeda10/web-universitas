@@ -32,8 +32,14 @@ class MahasiswaController extends Controller
 
     public function update(Request $request, $id)
     {
+      // dd($request->all());
       $mahasiswa = \App\Mahasiswa::find($id);
       $mahasiswa->update($request->all());
+      if ($request->hasfile('avatar')) {
+        $request->file('avatar')->move('images/', $request->file('avatar')->getClientOriginalName());
+        $mahasiswa->avatar = $request->file('avatar')->getClientOriginalName();
+        $mahasiswa->save();
+      }
       return redirect('/mahasiswa')->with('sukses', 'Data berhasil di update');
     }
 
@@ -42,5 +48,11 @@ class MahasiswaController extends Controller
       $mahasiswa = \App\Mahasiswa::find($id);
       $mahasiswa->delete();
       return redirect('/mahasiswa')->with('sukses', 'Data berhasil di hapus');
+    }
+
+    public function profile($id)
+    {
+      $mahasiswa = \App\Mahasiswa::find($id);
+      return view('mahasiswa.profile',['mahasiswa' => $mahasiswa]);
     }
 }

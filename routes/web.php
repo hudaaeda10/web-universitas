@@ -27,4 +27,5 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/mahasiswa/{id}/edit', 'MahasiswaController@edit');
     Route::post('/mahasiswa/{id}/update', 'MahasiswaController@update');
     Route::get('/mahasiswa/{id}/delete', 'MahasiswaController@delete');
+    Route::get('/mahasiswa/{id}/profile', 'MahasiswaController@profile');
   });

@@ -11,7 +11,7 @@
           	   <h3 class="panel-title">Inputs</h3>
             </div>
             <div class="panel-body">
-              <form action="/mahasiswa/{{$mahasiswa->id}}/update" method="POST"> <!-- tambahan action mengarah kepada root yang ingin di jalankan dan method untuk pengiriman data ke database -->
+              <form action="/mahasiswa/{{$mahasiswa->id}}/update" method="POST" enctype="multipart/form-data"> <!-- tambahan action mengarah kepada root yang ingin di jalankan dan method untuk pengiriman data ke database -->
                   {{csrf_field()}} <!-- untuk memberikan token pada form -->
                   <div class="form-group">
                     <label for="exampleInputEmail1">Nama Depan</label>
@@ -42,6 +42,12 @@
                     <label for="exampleFormControlTextarea1">Alamat</label>
                     <textarea name="alamat" class="form-control" id="exampleFormControlTextarea1" rows="3">{{$mahasiswa->alamat}}</textarea>
                   </div>
+
+                  <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Alamat</label>
+                    <input type="file" name="avatar" class="form-control">
+                  </div>
+
                   <button type="submit" class="btn btn-warning">Update</button>
                 </form>
               </div>
