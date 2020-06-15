@@ -10,7 +10,7 @@ class Mahasiswa extends Model
     protected $table = 'mahasiswa';
 
     // mendeklarasikan penggunaan create dengan array berisikan field pada Database
-    protected $fillable = ['nama_depan', 'nama_belakang', 'jenis_kelamin', 'agama', 'alamat', 'avatar'];
+    protected $fillable = ['nama_depan', 'nama_belakang', 'jenis_kelamin', 'agama', 'alamat', 'avatar', 'user_id'];
 
     public function getAvatar()
     {

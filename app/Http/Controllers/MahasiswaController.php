@@ -20,7 +20,18 @@ class MahasiswaController extends Controller
 
     public function create(Request $request)
     {
-      \App\Mahasiswa::create($request->all()); // untuk memasukkan data ke dalam database lewat model mahhasiswa
+      //insert tabel user
+      $user = new \App\User;
+      $user->role = 'mahasiswa';
+      $user->name = $request->nama_depan;
+      $user->email = $request->email;
+      $user->password = bcrypt('rahasia');
+      $user->remember_token = str_random(60);
+      $user->save();
+
+      // insert tabel mahasiswa
+      $request->request->add(['user_id' => $user->id]);
+      $mahasiswa = \App\Mahasiswa::create($request->all()); // untuk memasukkan data ke dalam database lewat model mahhasiswa
       return redirect('/mahasiswa')->with('sukses', 'Data Berhasil di input'); // redirect untuk kembali ke route yang diinginkan. with->() merupakan flash message untuk sekali load halaman
     }
 

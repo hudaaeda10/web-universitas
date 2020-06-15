@@ -20,8 +20,7 @@ Route::post('/postlogin', 'AuthController@postlogin');
 Route::get('/logout', 'AuthController@logout');
 
 // memasukkan route ke dalam grup untuk melakukan authentifikasi
-Route::group(['middleware' => 'auth'],function(){
-    Route::get('/dashboard', 'DashboardController@index');
+Route::group(['middleware' => ['auth', 'checkRole:admin']],function(){
     Route::get('/mahasiswa', 'MahasiswaController@index');
     Route::post('/mahasiswa/create','MahasiswaController@create');
     Route::get('/mahasiswa/{id}/edit', 'MahasiswaController@edit');
@@ -29,3 +28,7 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/mahasiswa/{id}/delete', 'MahasiswaController@delete');
     Route::get('/mahasiswa/{id}/profile', 'MahasiswaController@profile');
   });
+
+Route::group(['middleware' => ['auth', 'checkRole:admin,mahasiswa']],function(){    
+  Route::get('/dashboard', 'DashboardController@index');
+});
