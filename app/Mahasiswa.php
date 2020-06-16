@@ -23,6 +23,6 @@ class Mahasiswa extends Model
 
     public function matkul()
     {
-      return $this->belongsToMany(Matkul::class)->withPivot(['nilai']); //menggunkan pivot dan memanggil field yang ingin di ambil
+      return $this->belongsToMany(Matkul::class)->withPivot(['nilai'])->withTimeStamps(); //menggunkan pivot dan memanggil field yang ingin di ambil
     }
 }

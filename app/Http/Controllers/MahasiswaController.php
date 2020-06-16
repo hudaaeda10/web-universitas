@@ -79,6 +79,18 @@ class MahasiswaController extends Controller
     public function profile($id)
     {
       $mahasiswa = \App\Mahasiswa::find($id);
-      return view('mahasiswa.profile',['mahasiswa' => $mahasiswa]);
+      $matakuliah = \App\Matkul::all();
+      return view('mahasiswa.profile',['mahasiswa' => $mahasiswa, 'matakuliah' => $matakuliah]);
+    }
+
+    public function addnilai(Request $request,$idmahasiswa)
+    {
+      $mahasiswa = \App\Mahasiswa::find($idmahasiswa);
+      // memastikkan tidak ada matkul yang diberi nilai dua kali
+      if($mahasiswa->matkul()->where('matkul_id',$request->matkul)->exists()){
+        return redirect('mahasiswa/'.$idmahasiswa.'/profile')->with('error', 'Nilai sudah ada');        
+      }
+      $mahasiswa->matkul()->attach($request->matkul,['nilai' => $request->nilai]);  // untuk memasukkan nilai di pivot tabelnya
+      return redirect('mahasiswa/'.$idmahasiswa.'/profile')->with('sukses', 'Nilai berhasil dimasukkan');
     }
 }
