@@ -20,6 +20,16 @@ class MahasiswaController extends Controller
 
     public function create(Request $request)
     {
+      // membuat validasi data create
+      $this->validate($request, [
+        'nama_depan' => 'required|min:5',
+        'nama_depan' => 'required',
+        'email' => 'required|email|unique:users',
+        'jenis_kelamin' => 'required',
+        'agama' => 'required',
+        'avatar' => 'mimes:jpeg,png'
+      ]);
+
       //insert tabel user
       $user = new \App\User;
       $user->role = 'mahasiswa';
@@ -32,6 +42,11 @@ class MahasiswaController extends Controller
       // insert tabel mahasiswa
       $request->request->add(['user_id' => $user->id]);
       $mahasiswa = \App\Mahasiswa::create($request->all()); // untuk memasukkan data ke dalam database lewat model mahhasiswa
+      if ($request->hasfile('avatar')) {
+        $request->file('avatar')->move('images/', $request->file('avatar')->getClientOriginalName());
+        $mahasiswa->avatar = $request->file('avatar')->getClientOriginalName();
+        $mahasiswa->save();
+      }
       return redirect('/mahasiswa')->with('sukses', 'Data Berhasil di input'); // redirect untuk kembali ke route yang diinginkan. with->() merupakan flash message untuk sekali load halaman
     }
 

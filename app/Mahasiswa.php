@@ -20,4 +20,9 @@ class Mahasiswa extends Model
 
       return asset('images/'.$this->avatar);
     }
+
+    public function matkul()
+    {
+      return $this->belongsToMany(Matkul::class)->withPivot(['nilai']); //menggunkan pivot dan memanggil field yang ingin di ambil
+    }
 }

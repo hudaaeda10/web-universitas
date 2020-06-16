@@ -44,7 +44,7 @@
                   </div>
 
                   <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Alamat</label>
+                    <label for="exampleFormControlTextarea1">avatar</label>
                     <input type="file" name="avatar" class="form-control">
                   </div>
 
