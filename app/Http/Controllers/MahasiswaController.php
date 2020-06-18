@@ -80,7 +80,18 @@ class MahasiswaController extends Controller
     {
       $mahasiswa = \App\Mahasiswa::find($id);
       $matakuliah = \App\Matkul::all();
-      return view('mahasiswa.profile',['mahasiswa' => $mahasiswa, 'matakuliah' => $matakuliah]);
+
+      //menyiapkan data chart
+      $categories=[];
+      $data = [];
+      foreach($matakuliah as $mt){
+        if ($mahasiswa->matkul()->wherePivot('matkul_id', $mt->id)->first()) {
+          $categories[]=$mt->nama;
+          $data[] = $mahasiswa->matkul()->wherePivot('matkul_id', $mt->id)->first()->pivot->nilai;
+        }        
+      }
+
+      return view('mahasiswa.profile',['mahasiswa' => $mahasiswa, 'matakuliah' => $matakuliah, 'categories' =>$categories, 'data' => $data]);
     }
 
     public function addnilai(Request $request,$idmahasiswa)
@@ -88,7 +99,7 @@ class MahasiswaController extends Controller
       $mahasiswa = \App\Mahasiswa::find($idmahasiswa);
       // memastikkan tidak ada matkul yang diberi nilai dua kali
       if($mahasiswa->matkul()->where('matkul_id',$request->matkul)->exists()){
-        return redirect('mahasiswa/'.$idmahasiswa.'/profile')->with('error', 'Nilai sudah ada');        
+        return redirect('mahasiswa/'.$idmahasiswa.'/profile')->with('error', 'Nilai sudah ada');
       }
       $mahasiswa->matkul()->attach($request->matkul,['nilai' => $request->nilai]);  // untuk memasukkan nilai di pivot tabelnya
       return redirect('mahasiswa/'.$idmahasiswa.'/profile')->with('sukses', 'Nilai berhasil dimasukkan');
