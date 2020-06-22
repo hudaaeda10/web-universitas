@@ -28,6 +28,7 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']],function(){
     Route::get('/mahasiswa/{id}/delete', 'MahasiswaController@delete');
     Route::get('/mahasiswa/{id}/profile', 'MahasiswaController@profile');
     Route::post('/mahasiswa/{id}/addnilai', 'MahasiswaController@addnilai');
+    Route::get('/mahasiswa/{id}/{idmapel}/deletenilai', 'MahasiswaController@deletenilai');
   });
 
 Route::group(['middleware' => ['auth', 'checkRole:admin,mahasiswa']],function(){

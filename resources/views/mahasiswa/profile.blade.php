@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@section('head')
+<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+@endsection
+
 @section('content')
 
 <div class="main">
@@ -79,6 +83,7 @@
 												<th>NAMA</th>
 												<th>SEMESTER</th>
 												<th>NILAI</th>
+												<th>AKSI</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -87,7 +92,9 @@
 												<td>{{$matkul->kode}}</td>
 												<td>{{$matkul->nama}}</td>
 												<td>{{$matkul->semester}}</td>
-												<td>{{$matkul->pivot->nilai}}</td> <!-- memanggil data dari pivot -->
+												<!-- memanggil data dari pivot -->
+											 	<td><a href="#" class="nilai" data-type="text" data-pk="{{$matkul->id}}" data-url="/api/mahasiswa/{{$mahasiswa->id}}/editnilai" data-title="Masukkan Nilai">{{$matkul->pivot->nilai}}</a></td>
+												<td><a href="/mahasiswa/{{$mahasiswa->id}}/{{$matkul->id}}/deletenilai" class="btn btn-danger btn-sm" onclick="return confirm('Yakin mau di hapus ?')">Delete</a></td>
 											</tr>
 											@endforeach
 										</tbody>
@@ -147,6 +154,7 @@
     @stop
 
 @section('footer')
+<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script>
 	Highcharts.chart('chartNilai', {
@@ -167,7 +175,7 @@
 				}
 		},
 		tooltip: {
-				headerFormat: '<span style="font-size:10px">{point.key}</span><table>',				
+				headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
 				footerFormat: '</table>',
 				shared: true,
 				useHTML: true
@@ -183,6 +191,9 @@
 				data: {!! json_encode($data) !!}
 
 		}]
+	});
+	$(document).ready(function() {
+    $('.nilai').editable();
 	});
 </script>
 @stop

@@ -88,7 +88,7 @@ class MahasiswaController extends Controller
         if ($mahasiswa->matkul()->wherePivot('matkul_id', $mt->id)->first()) {
           $categories[]=$mt->nama;
           $data[] = $mahasiswa->matkul()->wherePivot('matkul_id', $mt->id)->first()->pivot->nilai;
-        }        
+        }
       }
 
       return view('mahasiswa.profile',['mahasiswa' => $mahasiswa, 'matakuliah' => $matakuliah, 'categories' =>$categories, 'data' => $data]);
@@ -103,5 +103,13 @@ class MahasiswaController extends Controller
       }
       $mahasiswa->matkul()->attach($request->matkul,['nilai' => $request->nilai]);  // untuk memasukkan nilai di pivot tabelnya
       return redirect('mahasiswa/'.$idmahasiswa.'/profile')->with('sukses', 'Nilai berhasil dimasukkan');
+    }
+
+    public function deletenilai($idmahasiswa, $idmatkul)
+    {
+      $mahasiswa = \App\Mahasiswa::find($idmahasiswa);
+      $mahasiswa->matkul()->detach($idmatkul);
+      return redirect()->back()->with('sukses', 'Nilai berhasil di hapus');
+
     }
 }
