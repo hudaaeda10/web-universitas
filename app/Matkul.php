@@ -14,4 +14,9 @@ class Matkul extends Model
   {
     return $this->belongsToMany(Mahasiswa::class)->withPivot(['nilai']); //menggunkan pivot dan memanggil field yang ingin di ambil
   }
+
+  public function dosen()
+  {
+    return $this->belongsTo(Dosen::class);
+  }
 }

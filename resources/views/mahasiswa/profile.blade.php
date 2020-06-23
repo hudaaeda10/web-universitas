@@ -83,6 +83,7 @@
 												<th>NAMA</th>
 												<th>SEMESTER</th>
 												<th>NILAI</th>
+												<th>DOSEN</th>
 												<th>AKSI</th>
 											</tr>
 										</thead>
@@ -94,6 +95,7 @@
 												<td>{{$matkul->semester}}</td>
 												<!-- memanggil data dari pivot -->
 											 	<td><a href="#" class="nilai" data-type="text" data-pk="{{$matkul->id}}" data-url="/api/mahasiswa/{{$mahasiswa->id}}/editnilai" data-title="Masukkan Nilai">{{$matkul->pivot->nilai}}</a></td>
+												<td><a href="/dosen/{{$matkul->dosen_id}}/profile">{{$matkul->dosen->nama}}</a></td>
 												<td><a href="/mahasiswa/{{$mahasiswa->id}}/{{$matkul->id}}/deletenilai" class="btn btn-danger btn-sm" onclick="return confirm('Yakin mau di hapus ?')">Delete</a></td>
 											</tr>
 											@endforeach
