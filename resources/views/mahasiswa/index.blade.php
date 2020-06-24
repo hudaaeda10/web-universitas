@@ -24,6 +24,7 @@
                         <th>Jenis Kelamin</th>
                         <th>Agama</th>
                         <th>Alamat</th>
+                        <th>Test</th>
                         <th>Aksi</th>
 											</tr>
 										</thead>
@@ -36,6 +37,7 @@
                         <td>{{$mahasiswa->jenis_kelamin}}</td>
                         <td>{{$mahasiswa->agama}}</td>
                         <td>{{$mahasiswa->alamat}}</td>
+                        <td>{{$mahasiswa->rataRataNilai()}}</td>
                         <td>
                           <a href="/mahasiswa/{{$mahasiswa->id}}/edit" class="btn btn-warning btn-sm">Edit</a>
                           <!-- Memberikan notifikasi jika ingin menghapus sebuah data -->

@@ -39,7 +39,7 @@
 												{{$mahasiswa->matkul->count()}} <span>Mata Kuliah</span>
 											</div>
 											<div class="col-md-4 stat-item">
-												15 <span>Awards</span>
+												{{$mahasiswa->rataRataNilai()}}<span>Rata-Rata Nilai</span>
 											</div>
 											<div class="col-md-4 stat-item">
 												2174 <span>Points</span>
@@ -72,37 +72,37 @@
 								<!-- END AWARDS -->
 								<!-- TABBED CONTENT -->
 								<div class="panel">
-								<div class="panel-heading">
-									<h3 class="panel-title">Mata Kuliah</h3>
+									<div class="panel-heading">
+										<h3 class="panel-title">Mata Kuliah</h3>
+									</div>
+									<div class="panel-body">
+										<table class="table table-striped">
+											<thead>
+												<tr>
+													<th>KODE</th>
+													<th>NAMA</th>
+													<th>SEMESTER</th>
+													<th>NILAI</th>
+													<th>DOSEN</th>
+													<th>AKSI</th>
+												</tr>
+											</thead>
+											<tbody>
+												@foreach($mahasiswa->matkul as $matkul)
+												<tr>
+													<td>{{$matkul->kode}}</td>
+													<td>{{$matkul->nama}}</td>
+													<td>{{$matkul->semester}}</td>
+													<!-- memanggil data dari pivot -->
+												 	<td><a href="#" class="nilai" data-type="text" data-pk="{{$matkul->id}}" data-url="/api/mahasiswa/{{$mahasiswa->id}}/editnilai" data-title="Masukkan Nilai">{{$matkul->pivot->nilai}}</a></td>
+													<td><a href="/dosen/{{$matkul->dosen_id}}/profile">{{$matkul->dosen->nama}}</a></td>
+													<td><a href="/mahasiswa/{{$mahasiswa->id}}/{{$matkul->id}}/deletenilai" class="btn btn-danger btn-sm" onclick="return confirm('Yakin mau di hapus ?')">Delete</a></td>
+												</tr>
+												@endforeach
+											</tbody>
+										</table>
+									</div>
 								</div>
-								<div class="panel-body">
-									<table class="table table-striped">
-										<thead>
-											<tr>
-												<th>KODE</th>
-												<th>NAMA</th>
-												<th>SEMESTER</th>
-												<th>NILAI</th>
-												<th>DOSEN</th>
-												<th>AKSI</th>
-											</tr>
-										</thead>
-										<tbody>
-											@foreach($mahasiswa->matkul as $matkul)
-											<tr>
-												<td>{{$matkul->kode}}</td>
-												<td>{{$matkul->nama}}</td>
-												<td>{{$matkul->semester}}</td>
-												<!-- memanggil data dari pivot -->
-											 	<td><a href="#" class="nilai" data-type="text" data-pk="{{$matkul->id}}" data-url="/api/mahasiswa/{{$mahasiswa->id}}/editnilai" data-title="Masukkan Nilai">{{$matkul->pivot->nilai}}</a></td>
-												<td><a href="/dosen/{{$matkul->dosen_id}}/profile">{{$matkul->dosen->nama}}</a></td>
-												<td><a href="/mahasiswa/{{$mahasiswa->id}}/{{$matkul->id}}/deletenilai" class="btn btn-danger btn-sm" onclick="return confirm('Yakin mau di hapus ?')">Delete</a></td>
-											</tr>
-											@endforeach
-										</tbody>
-									</table>
-								</div>
-							</div>
 							<div class="panel">
 								<div id="chartNilai"></div>
 							</div>

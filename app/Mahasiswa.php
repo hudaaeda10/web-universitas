@@ -25,4 +25,23 @@ class Mahasiswa extends Model
     {
       return $this->belongsToMany(Matkul::class)->withPivot(['nilai'])->withTimeStamps(); //menggunkan pivot dan memanggil field yang ingin di ambil
     }
+
+    public function rataRataNilai()
+  {
+    //ambil nilai
+    $total = 0;
+    $hitung = 0;
+    if ($this->matkul->isNotEmpty()) {
+      foreach ($this->matkul as $matkul){
+        $total += $matkul->pivot->nilai;
+        $hitung++;
+      }
+    }
+    return $total != 0 ? round($total/$hitung) : $total;
+  }
+
+  public function nama_lengkap()
+  {
+    return $this->nama_depan.' '.$this->nama_belakang;
+  }
 }
