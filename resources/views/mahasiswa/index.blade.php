@@ -11,6 +11,9 @@
 								<div class="panel-heading">
 									<h3 class="panel-title">Data Mahasiswa</h3>
                   <div class="right">
+                    <a href="/mahasiswa/exportExcel" class="btn btn-sm btn-primary">Export Excel</a>
+                    <a href="/mahasiswa/exportPdf" class="btn btn-sm btn-primary">Export Pdf</a>
+
                     <!-- Button trigger modal -->
                     <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal"><i class="lnr lnr-plus-circle"></i></button>
                   </div>
@@ -24,7 +27,7 @@
                         <th>Jenis Kelamin</th>
                         <th>Agama</th>
                         <th>Alamat</th>
-                        <th>Test</th>
+                        <th>Rata2 Nilai</th>
                         <th>Aksi</th>
 											</tr>
 										</thead>

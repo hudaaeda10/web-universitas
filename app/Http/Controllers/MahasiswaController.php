@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Exports\MahasiswaExport;
+use Maatwebsite\Excel\Facades\Excel;
+use PDF;
 
 class MahasiswaController extends Controller
 {
@@ -111,5 +114,17 @@ class MahasiswaController extends Controller
       $mahasiswa->matkul()->detach($idmatkul);
       return redirect()->back()->with('sukses', 'Nilai berhasil di hapus');
 
+    }
+
+    public function exportExcel() 
+    {
+        return Excel::download(new MahasiswaExport, 'mahasiswa.xlsx');
+    }
+
+    public function exportPdf() 
+    {
+      $mahasiswa = \App\Mahasiswa::all();
+      $pdf = PDF::loadView('export.mahasiswapdf', ['mahasiswa' => $mahasiswa]);
+      return $pdf->download('mahasiswa.pdf');
     }
 }

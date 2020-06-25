@@ -29,7 +29,9 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']],function(){
     Route::get('/mahasiswa/{id}/profile', 'MahasiswaController@profile');
     Route::post('/mahasiswa/{id}/addnilai', 'MahasiswaController@addnilai');
     Route::get('/mahasiswa/{id}/{idmapel}/deletenilai', 'MahasiswaController@deletenilai');
-    Route::get('/dosen/{id}/profile', 'DosenController@profile');
+    Route::get('/mahasiswa/exportExcel', 'MahasiswaController@exportExcel');
+    Route::get('/mahasiswa/exportPdf', 'MahasiswaController@exportPdf'); 
+    Route::get('/dosen/{id}/profile', 'DosenController@profile');    
   });
 
 Route::group(['middleware' => ['auth', 'checkRole:admin,mahasiswa']],function(){
