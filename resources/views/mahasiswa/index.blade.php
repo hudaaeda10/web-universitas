@@ -44,7 +44,7 @@
                         <td>
                           <a href="/mahasiswa/{{$mahasiswa->id}}/edit" class="btn btn-warning btn-sm">Edit</a>
                           <!-- Memberikan notifikasi jika ingin menghapus sebuah data -->
-                          <a href="/mahasiswa/{{$mahasiswa->id}}/delete" class="btn btn-danger btn-sm" onclick="return confirm('Yakin mau di hapus ?')">Delete</a>
+                          <a href="#" class="btn btn-danger btn-sm delete" mahasiswa-id="{{$mahasiswa->id}}" mahasiswa-nama="{{$mahasiswa->nama_depan}}">Delete</a>
                         </td>
                       </tr>
                       <!-- penutup pengulangan -->
@@ -133,4 +133,25 @@
     </div>
   </div>
 </div>
+@stop
+
+@section('footer')
+  <script>
+    $('.delete').click(function(){
+      var mahasiswa_id = $(this).attr('mahasiswa-id');
+      var mahasiswa_nama = $(this).attr('mahasiswa-nama');
+      swal({
+        title: "Yakin?",
+        text: "Mau di hapus mahasiswa dengan nama " +mahasiswa_nama+" ??",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          window.location = "/mahasiswa/"+mahasiswa_id+"/delete";
+        }
+      });
+          });
+  </script>
 @stop

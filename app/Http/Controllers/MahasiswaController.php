@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Exports\MahasiswaExport;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
+use App\Mahasiswa;
 
 class MahasiswaController extends Controller
 {
@@ -53,16 +54,13 @@ class MahasiswaController extends Controller
       return redirect('/mahasiswa')->with('sukses', 'Data Berhasil di input'); // redirect untuk kembali ke route yang diinginkan. with->() merupakan flash message untuk sekali load halaman
     }
 
-    public function edit($id)
+    public function edit(Mahasiswa $mahasiswa)
     {
-      $mahasiswa = \App\Mahasiswa::find($id);
       return view('mahasiswa/edit', ['mahasiswa' => $mahasiswa]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Mahasiswa $mahasiswa)
     {
-      // dd($request->all());
-      $mahasiswa = \App\Mahasiswa::find($id);
       $mahasiswa->update($request->all());
       if ($request->hasfile('avatar')) {
         $request->file('avatar')->move('images/', $request->file('avatar')->getClientOriginalName());
@@ -72,16 +70,14 @@ class MahasiswaController extends Controller
       return redirect('/mahasiswa')->with('sukses', 'Data berhasil di update');
     }
 
-    public function delete($id)
+    public function delete(Mahasiswa $mahasiswa)
     {
-      $mahasiswa = \App\Mahasiswa::find($id);
       $mahasiswa->delete();
       return redirect('/mahasiswa')->with('sukses', 'Data berhasil di hapus');
     }
 
-    public function profile($id)
+    public function profile(Mahasiswa $mahasiswa)
     {
-      $mahasiswa = \App\Mahasiswa::find($id);
       $matakuliah = \App\Matkul::all();
 
       //menyiapkan data chart
@@ -99,7 +95,7 @@ class MahasiswaController extends Controller
 
     public function addnilai(Request $request,$idmahasiswa)
     {
-      $mahasiswa = \App\Mahasiswa::find($idmahasiswa);
+      $mahasiswa = Mahasiswa::find($idmahasiswa);
       // memastikkan tidak ada matkul yang diberi nilai dua kali
       if($mahasiswa->matkul()->where('matkul_id',$request->matkul)->exists()){
         return redirect('mahasiswa/'.$idmahasiswa.'/profile')->with('error', 'Nilai sudah ada');
@@ -108,9 +104,8 @@ class MahasiswaController extends Controller
       return redirect('mahasiswa/'.$idmahasiswa.'/profile')->with('sukses', 'Nilai berhasil dimasukkan');
     }
 
-    public function deletenilai($idmahasiswa, $idmatkul)
+    public function deletenilai(Mahasiswa $mahasiswa, $idmatkul)
     {
-      $mahasiswa = \App\Mahasiswa::find($idmahasiswa);
       $mahasiswa->matkul()->detach($idmatkul);
       return redirect()->back()->with('sukses', 'Nilai berhasil di hapus');
 

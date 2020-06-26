@@ -23,12 +23,12 @@ Route::get('/logout', 'AuthController@logout');
 Route::group(['middleware' => ['auth', 'checkRole:admin']],function(){
     Route::get('/mahasiswa', 'MahasiswaController@index');
     Route::post('/mahasiswa/create','MahasiswaController@create');
-    Route::get('/mahasiswa/{id}/edit', 'MahasiswaController@edit');
-    Route::post('/mahasiswa/{id}/update', 'MahasiswaController@update');
-    Route::get('/mahasiswa/{id}/delete', 'MahasiswaController@delete');
-    Route::get('/mahasiswa/{id}/profile', 'MahasiswaController@profile');
+    Route::get('/mahasiswa/{mahasiswa}/edit', 'MahasiswaController@edit');
+    Route::post('/mahasiswa/{mahasiswa}/update', 'MahasiswaController@update');
+    Route::get('/mahasiswa/{mahasiswa}/delete', 'MahasiswaController@delete');
+    Route::get('/mahasiswa/{mahasiswa}/profile', 'MahasiswaController@profile');
     Route::post('/mahasiswa/{id}/addnilai', 'MahasiswaController@addnilai');
-    Route::get('/mahasiswa/{id}/{idmapel}/deletenilai', 'MahasiswaController@deletenilai');
+    Route::get('/mahasiswa/{mahasiswa}/{idmapel}/deletenilai', 'MahasiswaController@deletenilai');
     Route::get('/mahasiswa/exportExcel', 'MahasiswaController@exportExcel');
     Route::get('/mahasiswa/exportPdf', 'MahasiswaController@exportPdf'); 
     Route::get('/dosen/{id}/profile', 'DosenController@profile');    
