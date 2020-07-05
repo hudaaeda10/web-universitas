@@ -32,9 +32,16 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']],function(){
     Route::get('/mahasiswa/{mahasiswa}/{idmapel}/deletenilai', 'MahasiswaController@deletenilai');
     Route::get('/mahasiswa/exportExcel', 'MahasiswaController@exportExcel');
     Route::get('/mahasiswa/exportPdf', 'MahasiswaController@exportPdf'); 
-    Route::get('/dosen/{id}/profile', 'DosenController@profile');    
+    Route::get('/dosen/{id}/profile', 'DosenController@profile');
+    Route::get('/posts', 'PostController@index');    
   });
 
 Route::group(['middleware' => ['auth', 'checkRole:admin,mahasiswa']],function(){
   Route::get('/dashboard', 'DashboardController@index');
 });
+
+
+Route::get('/{slug}', [
+    'uses' => 'SiteController@singlepost',
+    'as' => 'site.single.post'
+]);
