@@ -21,6 +21,11 @@
 	<!-- ICONS -->
 	<link rel="apple-touch-icon" sizes="76x76" href="{{asset('admin/assets/img/apple-icon.png')}}">
 	<link rel="icon" type="image/png" sizes="96x96" href="{{asset('admin/assets/img/favicon.png')}}">
+	<style>
+		.ck-editor__editable_inline {
+			min-height: 300px;
+		}
+	</style>
 	@yield('head')
 </head>
 
@@ -48,12 +53,13 @@
 	</div>
 	<!-- END WRAPPER -->
 	<!-- Javascript -->
-  <script src="{{asset('admin/assets/vendor/jquery/jquery.min.js')}}"></script>
+  	<script src="{{asset('admin/assets/vendor/jquery/jquery.min.js')}}"></script>
 	<script src="{{asset('admin/assets/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
 	<script src="{{asset('admin/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
 	<script src="{{asset('admin/assets/scripts/klorofil-common.js')}}"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script src="{{asset('frontend/js/ckeditor.js')}}"></script>
 	<script>
 		@if(Session::has('sukses'))
 			toastr.success("{{Session::get('sukses')}}", "Sukses")

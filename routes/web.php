@@ -33,7 +33,15 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']],function(){
     Route::get('/mahasiswa/exportExcel', 'MahasiswaController@exportExcel');
     Route::get('/mahasiswa/exportPdf', 'MahasiswaController@exportPdf'); 
     Route::get('/dosen/{id}/profile', 'DosenController@profile');
-    Route::get('/posts', 'PostController@index');    
+    Route::get('/posts', 'PostController@index')->name('posts.index');   
+    Route::get('post/add', [
+      'uses' => 'PostController@add',
+      'as' => 'posts.add'
+    ]); 
+    Route::post('post/create', [
+      'uses' => 'PostController@create',
+      'as' => 'posts.create'
+    ]); 
   });
 
 Route::group(['middleware' => ['auth', 'checkRole:admin,mahasiswa']],function(){

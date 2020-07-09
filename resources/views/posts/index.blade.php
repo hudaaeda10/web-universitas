@@ -11,7 +11,7 @@
 								<div class="panel-heading">
 									<h3 class="panel-title">Posts</h3>
                   <div class="right">
-                    <a href="#" class="btn btn-sm btn-primary">Add Posts</a>
+                    <a href="{{route('posts.add')}}" class="btn btn-sm btn-primary">Add Posts</a>
                   </div>
 								</div>
 								<div class="panel-body">
